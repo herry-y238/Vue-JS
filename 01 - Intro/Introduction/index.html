@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue JS Intro</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- first vue app -->
+    <!-- semua reactive kalau diganti di console app.message akan langsung ganti value -->
+    <div id="app">
+        <h3>{{ title }}</h3>
+        {{ message }}
+    </div>
+
+    <!-- selain text interpolation, bisa juga bind element atribut seperti berikut -->
+    <div id="app-2">
+        <h3>{{ title }}</h3>
+        <span v-bind:title="message">
+            Hover mouse untuk melihat dynamic bound title
+        </span>
+    </div>
+    <!-- disini kita melihat tag v-bind -->
+    <!-- v-bind atau directive, prefixes v- spesial atribut yang disediakan vue -->
+
+    <!-- Conditional dan Loop -->
+    <div id="app-3">
+        <h3>{{ title }}</h3>
+        <span v-if="seen">Disappear</span>
+    </div>
+    <!-- ubah seen jadi true atau false untuk menghilangkan -->
+
+    <!-- untuk loop -->
+    <div id="app-4">
+        <h3>{{ title }}</h3>
+        <ol>
+            <li v-for="anything in todos">
+                {{ anything.text }}
+            </li>
+        </ol>
+    </div>
+
+    <!-- user input based -->
+    <div id="app-5">
+        <h3>{{ title }}</h3>
+        <p>{{ message }}</p>
+        <button v-on:click="namaFunctionReversed">Reverse Message</button>
+    </div>
+
+    <!-- two way data binding with Vue -->
+    <div id="app-6">
+        <h3>{{ title }}</h3>
+        <p>{{ message }}</p>
+        <input v-model="message" />
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

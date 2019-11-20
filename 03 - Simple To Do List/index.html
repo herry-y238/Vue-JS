@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VUE Template Syntax And Expressions</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+      div button, input {
+          display: block;
+          margin-bottom: 10px;
+      }
+      li {
+          cursor: pointer;
+      }
+      .strikeout {
+        text-decoration: line-through;
+      }
+      .red-word {
+          color: red;
+      }
+  </style>
+</head>
+<body>
+    <div id="console-list">
+        <h1>{{ header.toLocaleUpperCase() }}</h1>
+        <button v-if="state === 'default'" @click="changeState('edit')">Add an item</button>
+        <button v-else @click="changeState('default')">Cancel</button>
+        <!-- contoh yang ga bisa di vue -->
+        <!-- <h1>{{ header; header.toLocaleUpperCase() }}</h1> tidak jalan -->
+        <!-- <h1>{{ var header = 'welcome' }}</h1> tidak jalan --> 
+        <!-- <h1>{{ if(header) { return 'welcome' } }}</h1> tidak jalan --> 
+        <!-- <h1>{{ header ? header : 'welcome' }}</h1> use ternary --> 
+
+        <!-- two way data binding dengan v-model directives -->
+        <!-- v-on:keyup.enter or anything below for @ for using keyboard enter -->
+        <!-- v-bind singkatan :disabled -->
+        <div v-if="state === 'edit'" class="some-form">
+            <input v-model="newItems" type="text" placeholder="Add anything" @keydown.enter.prevent />
+            <button @click="saveItems" :disabled="newItems.length === 0">SAVE</button>
+        </div>
+
+        <!-- contoh hitung character di input field -->
+        <!-- <p>{{ characterCount }}/200</p> -->
+
+        <!-- contoh using v-bind for link href dari input -->
+        <!-- <a v-bind:href="newItems" target="_blank">Link Click</a> -->
+
+        <!-- looping di vue  -->
+        <ul>
+            <li v-for="anyword in reversedItem" :class="{strikeout: anyword.status}" @click="toggleStatus(anyword)">{{ anyword.label }}</li>
+            <!-- contoh dua class di dalam satu tag -->
+            <!-- <li v-for="anyword in items" :class="[anyword.status ? 'strikeout' : '']">{{ anyword.label }}</li> -->
+            <!-- toggle multiple class di tag dengan menambahkan highprio property  -->
+            <!-- <li v-for="anyword in items" :class="[anyword.status ? 'strikeout' : '', anyword.highPrio ? 'red-word' : '']">{{ anyword.label }}</li> -->
+            <!-- <li v-for="anyword in items" :class="[anyword.status ? 'strikeout' : '', 'red-word']">{{ anyword.label }}</li> -->
+        </ul>
+        <p v-if="items.length === 0">type anything</p>
+    </div>
+    <script>
+        new Vue ({
+            el: '#console-list',
+            data: {
+                state: 'default',
+                header: "let's go and eat an elephant",
+                newItems: '',
+                items: [ 
+                    {
+                        label: 'Anything', status: false, highPrio: false
+                    },
+                    {
+                        label: 'Whatever', status: true, highPrio: true
+                    },
+                    {
+                        label: 'Do not know', status: false, highPrio: true
+                    },
+                ],
+            },
+            computed: {
+                // character count
+                // characterCount() {
+                //     return this.newItems.length;
+                // }
+                reversedItem() {
+                    return this.items.slice(0).reverse();
+                }
+            },
+            methods: {
+                saveItems: function() {
+                    this.items.push({
+                        label: this.newItems,
+                        status: false
+                    },);
+                    this.newItems = '';
+                },
+                changeState: function(newState) {
+                    this.state = newState;
+
+                    this.newItems = '';
+                },
+                toggleStatus: function(anyword) {
+                    anyword.status = !anyword.status;
+                },
+            }
+        });
+    </script>
+</body>
+</html>

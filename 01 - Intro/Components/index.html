@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue JS Components Intro</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- 
+        tujuan dari component adalah membuat aplikasi yang besar yang terdiri dari 
+        komponen kecil yang dapat dipisahkan dan digunakan kembali kapan saja 
+
+        contoh :
+        <div id="app">
+            <app-nav></app-nav>
+            <app-view>
+                <app-sidebar></app-sidebar>
+                <app-content></app-content>
+            </app-view>
+        </div>
+    -->
+    <div id="app-7">
+        <ol>
+            <!--
+            Now we provide each todo-item with the todo object
+            it's representing, so that its content can be dynamic.
+            We also need to provide each component with a "key",
+            which will be explained later.
+            -->
+            <todo-item v-for="item in listConsole" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </ol>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
