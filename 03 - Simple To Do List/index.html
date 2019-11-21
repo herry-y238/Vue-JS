@@ -35,7 +35,7 @@
         <!-- v-on:keyup.enter or anything below for @ for using keyboard enter -->
         <!-- v-bind singkatan :disabled -->
         <div v-if="state === 'edit'" class="some-form">
-            <input v-model="newItems" type="text" placeholder="Add anything" @keydown.enter.prevent />
+            <input v-model="newItems" type="text" placeholder="Add anything" @keydown.enter.prevent="saveItems" />
             <button @click="saveItems" :disabled="newItems.length === 0">SAVE</button>
         </div>
 
@@ -85,12 +85,16 @@
                 }
             },
             methods: {
-                saveItems: function() {
-                    this.items.push({
-                        label: this.newItems,
-                        status: false
-                    },);
-                    this.newItems = '';
+                saveItems: function(event) {
+                    if (this.newItems.length === 0) {
+                        event.stopPropagation();
+                    } else {
+                        this.items.push({
+                            label: this.newItems,
+                            status: false
+                        },);
+                        this.newItems = '';
+                    }
                 },
                 changeState: function(newState) {
                     this.state = newState;
