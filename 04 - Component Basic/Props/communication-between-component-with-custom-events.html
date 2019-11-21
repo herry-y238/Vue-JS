@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Communication Between Component With Custom Events</title>
+  <style>
+    .card {
+      width: 300px;
+      background: beige;
+      text-align: center;
+      padding: 15px 0px;
+      margin: 15px auto;
+      border:1px solid beige;
+      cursor: pointer;
+    }
+    .card.active-class {
+      border: 1px solid green;
+    }
+    .card:hover {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+
+    <div id="app">
+      <plan-picker></plan-picker>
+    </div>
+    
+    <script type="text/x-template" id="plan-picker-template">
+      <div class="plans">
+        <!-- when select click execute selectPlan -->
+        <planList v-for="plan in plans" :name="plan" @select="selectPlan" :selectedPlan="selectedPlan"></planList>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="plan-template">
+      <!-- add @click:select to listen to the event and add :class="" -->
+      <div class="content">
+          <div class="card" @click="select" :class="{'active-class': isSelected}">
+            <span class="title">{{name}}</span>
+          </div>
+      </div>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="communication-between-component-with-custom-events.js"></script>  
+</body>
+</html>

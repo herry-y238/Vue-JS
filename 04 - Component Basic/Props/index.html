@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VUE Props</title>
+  <style>
+    .card {
+      width: 300px;
+      background: beige;
+      text-align: center;
+      padding: 15px 0px;
+      margin: 15px auto;
+    }
+  </style>
+</head>
+<body>
+    <div id="app">
+
+      <plan-list v-for="plan in plans" :name="plan"></plan-list>
+
+    </div>
+
+    <script type="text/x-template" id="plan">
+      <div class="content">
+          <div class="card">
+            <span class="title">{{name}}</span>
+          </div>
+      </div>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>  
+</body>
+</html>
